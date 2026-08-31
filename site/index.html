@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="Send the receipt photo, say who shared, and your assistant keeps the group’s running balance in the chat — then settles everyone up in the fewest possible payments. An open-source agent skill for Claude, ChatGPT, and Codex. No app, no account, no server."
+      content="Your assistant reads the receipt, keeps the group’s balances in the chat, and settles up in the fewest payments. An open-source agent skill for Claude, ChatGPT, and Codex. No app, no account, no server."
     >
     <meta name="theme-color" content="#f3f3f3">
     <meta property="og:title" content="Split Expenses — send the receipt, your assistant settles the rest">
     <meta
       property="og:description"
-      content="An open-source agent skill that reads receipt photos, keeps a zero-sum balance table in your conversation, and settles the group in the provably fewest payments."
+      content="An agent skill that reads receipts, keeps the group’s balances in your chat, and settles up in the fewest payments."
     >
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://splitexpenses.ai/">
@@ -64,10 +64,8 @@
           <p class="kicker">An agent skill for Claude, ChatGPT &amp; Codex</p>
           <h1>Send the receipt.<br>Say who shared.<br>Your assistant<br>settles the rest.</h1>
           <p class="lede">
-            A small open-source skill that turns your assistant into the group’s
-            bookkeeper. Receipts and plain sentences go in; a running balance
-            table comes back, right in the chat. The trip ends the way it
-            should: everyone square, in the fewest payments the numbers allow.
+            It reads the receipt, keeps the group’s balances in the chat, and
+            finds the fewest payments that make everyone even.
           </p>
 
           <div class="actions">
@@ -93,10 +91,9 @@
           <p class="chapter-num"><span class="num">01</span> In conversation</p>
           <h2 id="conversation-title">Just say what happened.</h2>
           <p>
-            No forms, no categories, nobody else to onboard. Hand your assistant the
-            receipt photo, add the part a photo can’t know — who was in on the wine —
-            and the table comes back updated. It always sums to zero, so a mistake
-            has nowhere to hide.
+            No forms, and nothing for your friends to install. Drop in the
+            receipt, say who shared what, and the table comes back updated. It
+            always sums to zero.
           </p>
 
           <figure class="plate" id="fig-ledger" data-figure>
@@ -192,15 +189,12 @@
 
       <section class="chapter" id="settlement" aria-labelledby="settlement-title">
         <div class="wrap">
-          <p class="chapter-num"><span class="num">02</span> At the end of it</p>
+          <p class="chapter-num"><span class="num">02</span> At the end</p>
           <h2 id="settlement-title">Say “settle up.” It’s done.</h2>
           <p>
-            Back comes the shortest list of payments that would clear the group —
-            not a good guess at it, the provable minimum, checked by the solver
-            before you see it. Each goes straight from someone who owes to someone
-            who’s owed, and there are fewer of them than there are people, every
-            time. It’s a list, not a transaction: you pay each other however you
-            already do, and the skill never touches your money.
+            You get the shortest list of payments that makes everyone even — the
+            exact minimum, not a guess. It’s just a list: no money moves through
+            the skill. Pay each other however you already do.
           </p>
 
           <figure class="plate" id="fig-settle" data-figure>
@@ -313,8 +307,8 @@
           <p class="chapter-num"><span class="num">03</span> Install</p>
           <h2 id="install-title">One file, two ways in.</h2>
           <p>
-            Download it once. Unzip it for an agent with filesystem access, or upload
-            the very same file to the Claude or ChatGPT apps.
+            Download one zip. Unzip it for a coding agent, or upload it to the
+            Claude or ChatGPT apps.
           </p>
 
           <ol class="routes">
@@ -334,8 +328,8 @@
           </ol>
 
           <p class="fineprint">
-            Python 3.9 or newer. No other dependencies, and nothing to configure —
-            start talking about a shared cost.
+            Python 3.9 or newer. Nothing else to install or configure. Then just
+            start talking.
           </p>
         </div>
       </section>
