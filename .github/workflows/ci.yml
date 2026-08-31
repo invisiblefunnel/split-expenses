@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ruff:
+    name: format and lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Pinned so that a ruff release cannot reformat the tree out from under
+      # a pull request. Keep this in step with the version used locally.
+      - name: Install ruff
+        run: pipx install ruff==0.16.3
+
+      - name: Check formatting
+        run: ruff format --check --diff .
+
+      - name: Lint
+        run: ruff check .
+
+  test:
+    name: tests on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The skill bundles settle.py as a fixed artifact and runs it on
+        # whatever interpreter the chat sandbox provides, without installing a
+        # runtime, so every supported version is exercised.
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # No dependencies to install: the solver and its tests are stdlib only.
+      - name: Run the settlement test suite
+        run: python -m unittest discover -s tests -v
