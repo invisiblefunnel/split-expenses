@@ -1,0 +1,429 @@
+<!doctype html>
+<!--
+  Source for the README animation (docs/images/demo.svg).
+
+  One conversation, cut into four parts, which animate.py joins back into the
+  animation the README shows. Open with ?theme=dark for the dark variant. To
+  regenerate the animation:
+
+      python3 docs/examples/render.py
+
+  The balances and the settlement are the real thing:
+  tests/test_example_conversation.py replays this conversation, checks every
+  table below, and checks the settlement against scripts/settle.py.
+-->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>split-expenses — example conversation</title>
+<style>
+  :root {
+    --page: #f6f4ef;
+    --card: #ffffff;
+    --line: #e6e1d8;
+    --text: #23211e;
+    --muted: #78716a;
+    --bubble: #f0ede4;
+    --row: #faf8f4;
+    --pos: #14684a;
+    --neg: #a63520;
+  }
+  [data-theme="dark"] {
+    --page: #161513;
+    --card: #201f1d;
+    --line: #34322e;
+    --text: #ece9e3;
+    --muted: #9b958c;
+    --bubble: #2d2b27;
+    --row: #262421;
+    --pos: #57bf97;
+    --neg: #e08f78;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--page);
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv05", "ss03";
+    color: var(--text);
+  }
+
+  .frame { padding: 26px; width: 812px; background: var(--page); }
+
+  .chat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Parts two to four open mid-conversation. */
+  .earlier {
+    align-self: center;
+    color: var(--muted);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    margin-bottom: 2px;
+  }
+
+  .from-user {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 9px;
+    max-width: 78%;
+  }
+
+  .bubble {
+    background: var(--bubble);
+    border-radius: 18px;
+    padding: 11px 17px;
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+
+  .assistant {
+    align-self: flex-start;
+    max-width: 92%;
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+
+  .assistant p { margin: 0 0 12px; }
+  .assistant p:last-child { margin-bottom: 0; }
+
+  .label {
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin: 0 0 9px;
+  }
+
+  /* An uploaded photo of the receipt, as a chat client would preview it. */
+  .photo {
+    position: relative;
+    width: 236px;
+    height: 268px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(155deg, #514639 0%, #3a322a 60%, #2f2822 100%);
+  }
+  .receipt {
+    position: absolute;
+    left: 18px;
+    top: 13px;
+    width: 202px;
+    padding: 12px 13px 13px;
+    background: #fbf9f3;
+    color: #2b2823;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 9px;
+    line-height: 1.62;
+    transform: rotate(-1.4deg);
+    box-shadow: 0 9px 22px rgba(0, 0, 0, 0.45);
+  }
+  .receipt .shop {
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .receipt .where {
+    text-align: center;
+    font-size: 7.5px;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .receipt hr {
+    border: 0;
+    border-top: 1px dashed #a9a294;
+    margin: 5px 0;
+  }
+  .receipt .item { display: flex; justify-content: space-between; gap: 10px; }
+  .receipt .total { display: flex; justify-content: space-between; font-weight: 700; }
+  .receipt .foot {
+    text-align: center;
+    font-size: 7.5px;
+    letter-spacing: 0.04em;
+    margin-top: 6px;
+    color: #6a635a;
+  }
+
+  table {
+    border-collapse: collapse;
+    min-width: 420px;
+    font-size: 14.5px;
+    margin-bottom: 4px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 7px 15px;
+  }
+  th {
+    background: var(--row);
+    font-weight: 600;
+    text-align: left;
+  }
+  td.amount, th.amount {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  td.amount { font-weight: 500; }
+  .pos { color: var(--pos); }
+  .neg { color: var(--neg); }
+  .new td:first-child::after {
+    content: "new";
+    margin-left: 10px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 1px 5px;
+    vertical-align: 2px;
+  }
+
+  .tool {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 6px 12px;
+    margin-bottom: 14px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    background: var(--row);
+  }
+  .tool .caret { font-size: 10px; opacity: 0.75; }
+
+  .payment {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    background: var(--row);
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    padding: 10px 16px;
+    margin-bottom: 8px;
+    min-width: 330px;
+    max-width: 400px;
+    font-size: 15px;
+  }
+  .payment .who strong { font-weight: 600; }
+  .payment .sum {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+</head>
+<body>
+
+<!-- Part one: an expense in plain language, then one as a photo. -->
+<div class="frame" id="part-1">
+  <div class="chat">
+
+    <div class="from-user">
+      <div class="bubble">I booked the apartment in Le Marais, €690 for the three of us — me, Brand and Cooper</div>
+    </div>
+
+    <div class="assistant">
+      <p>Got it — €690 split three ways is €230 each, and you fronted the whole thing.</p>
+      <p class="label">Current balances — EUR</p>
+      <table>
+        <tr><th>Participant</th><th class="amount">Balance</th></tr>
+        <tr><td>You</td><td class="amount pos">+460.00</td></tr>
+        <tr><td>Brand</td><td class="amount neg">−230.00</td></tr>
+        <tr><td>Cooper</td><td class="amount neg">−230.00</td></tr>
+      </table>
+    </div>
+
+    <div class="from-user">
+      <div class="photo">
+        <div class="receipt">
+          <div class="shop">BISTROT DES ARCHIVES</div>
+          <div class="where">R. DES ARCHIVES 31 · PARIS 3E</div>
+          <hr>
+          <div class="item"><span>1 &nbsp;Œufs mayonnaise</span><span>8,50</span></div>
+          <div class="item"><span>1 &nbsp;Soupe à l'oignon</span><span>9,00</span></div>
+          <div class="item"><span>1 &nbsp;Steak frites</span><span>26,00</span></div>
+          <div class="item"><span>1 &nbsp;Confit de canard</span><span>24,00</span></div>
+          <div class="item"><span>1 &nbsp;Poulet rôti, purée</span><span>17,00</span></div>
+          <div class="item"><span>1 &nbsp;Chinon 75cl</span><span>32,00</span></div>
+          <div class="item"><span>3 &nbsp;Café</span><span>7,50</span></div>
+          <hr>
+          <div class="total"><span>TOTAL</span><span>€ 124,00</span></div>
+          <hr>
+          <div class="foot">14/06 21:52 · TABLE 6<br>MERCI DE VOTRE VISITE</div>
+        </div>
+      </div>
+      <div class="bubble">Brand paid this one. Cooper didn't drink though — the wine's just me and Brand.</div>
+    </div>
+
+    <div class="assistant">
+      <p>Dinner came to €124.00. Taking the €32.00 Chinon off the top for you and
+         Brand (€16.00 each), the remaining €92.00 splits three ways, with Brand out of
+         pocket for the whole €124.00.</p>
+      <p class="label">Current balances — EUR</p>
+      <table>
+        <tr><th>Participant</th><th class="amount">Balance</th></tr>
+        <tr><td>You</td><td class="amount pos">+413.33</td></tr>
+        <tr><td>Brand</td><td class="amount neg">−152.67</td></tr>
+        <tr><td>Cooper</td><td class="amount neg">−260.66</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- Part two: the roster grows by itself, and shrinks for one expense. -->
+<div class="frame" id="part-2">
+  <div class="chat">
+
+    <div class="earlier">⋯ earlier in the same conversation</div>
+
+    <div class="from-user">
+      <div class="bubble">Doyle got in on Thursday and booked the Seine dinner cruise — €280 for the four of us</div>
+    </div>
+
+    <div class="assistant">
+      <p>Doyle's in — €280 four ways is €70 each, and Doyle covered it.</p>
+      <p class="label">Current balances — EUR</p>
+      <table>
+        <tr><th>Participant</th><th class="amount">Balance</th></tr>
+        <tr><td>You</td><td class="amount pos">+343.33</td></tr>
+        <tr><td>Brand</td><td class="amount neg">−222.67</td></tr>
+        <tr><td>Cooper</td><td class="amount neg">−330.66</td></tr>
+        <tr class="new"><td>Doyle</td><td class="amount pos">+210.00</td></tr>
+      </table>
+    </div>
+
+    <div class="from-user">
+      <div class="bubble">Brand sat out the Louvre — €66, just me, Cooper and Doyle. I paid.</div>
+    </div>
+
+    <div class="assistant">
+      <p>€66 three ways is €22 each for you, Cooper and Doyle, on your card.</p>
+      <p class="label">Current balances — EUR</p>
+      <table>
+        <tr><th>Participant</th><th class="amount">Balance</th></tr>
+        <tr><td>You</td><td class="amount pos">+387.33</td></tr>
+        <tr><td>Brand</td><td class="amount neg">−222.67</td></tr>
+        <tr><td>Cooper</td><td class="amount neg">−352.66</td></tr>
+        <tr><td>Doyle</td><td class="amount pos">+188.00</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- Part three: a nickname read from context, and a correction to an earlier expense. -->
+<div class="frame" id="part-3">
+  <div class="chat">
+
+    <div class="earlier">⋯ earlier in the same conversation</div>
+
+    <div class="from-user">
+      <div class="bubble">Coop got the taxi to CDG, €56 — split it four ways</div>
+    </div>
+
+    <div class="assistant">
+      <p>€56 four ways is €14 each, with Cooper paying.</p>
+      <p class="label">Current balances — EUR</p>
+      <table>
+        <tr><th>Participant</th><th class="amount">Balance</th></tr>
+        <tr><td>You</td><td class="amount pos">+373.33</td></tr>
+        <tr><td>Brand</td><td class="amount neg">−236.67</td></tr>
+        <tr><td>Cooper</td><td class="amount neg">−310.66</td></tr>
+        <tr><td>Doyle</td><td class="amount pos">+174.00</td></tr>
+      </table>
+    </div>
+
+    <div class="from-user">
+      <div class="bubble">oh — the cruise was €300, not €280. Doyle just forwarded the confirmation.</div>
+    </div>
+
+    <div class="assistant">
+      <p>Updated the cruise to €300 — €75 each instead of €70.</p>
+      <p class="label">Current balances — EUR</p>
+      <table>
+        <tr><th>Participant</th><th class="amount">Balance</th></tr>
+        <tr><td>You</td><td class="amount pos">+368.33</td></tr>
+        <tr><td>Brand</td><td class="amount neg">−241.67</td></tr>
+        <tr><td>Cooper</td><td class="amount neg">−315.66</td></tr>
+        <tr><td>Doyle</td><td class="amount pos">+189.00</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- Part four: money that actually moved, then the settlement. -->
+<div class="frame" id="part-4">
+  <div class="chat">
+
+    <div class="earlier">⋯ earlier in the same conversation</div>
+
+    <div class="from-user">
+      <div class="bubble">Cooper gave me €100 in cash this morning</div>
+    </div>
+
+    <div class="assistant">
+      <p>Logged Cooper's €100 cash to you.</p>
+      <p class="label">Current balances — EUR</p>
+      <table>
+        <tr><th>Participant</th><th class="amount">Balance</th></tr>
+        <tr><td>You</td><td class="amount pos">+268.33</td></tr>
+        <tr><td>Brand</td><td class="amount neg">−241.67</td></tr>
+        <tr><td>Cooper</td><td class="amount neg">−215.66</td></tr>
+        <tr><td>Doyle</td><td class="amount pos">+189.00</td></tr>
+      </table>
+    </div>
+
+    <div class="from-user">
+      <div class="bubble">ok, settle up</div>
+    </div>
+
+    <div class="assistant">
+      <div class="tool"><span class="caret">▶</span> python3 scripts/settle.py</div>
+      <p>Three transfers clears everyone:</p>
+      <div class="payment">
+        <span class="who"><strong>Brand</strong> pays <strong>You</strong></span>
+        <span class="sum">€241.67</span>
+      </div>
+      <div class="payment">
+        <span class="who"><strong>Cooper</strong> pays <strong>You</strong></span>
+        <span class="sum">€26.66</span>
+      </div>
+      <div class="payment">
+        <span class="who"><strong>Cooper</strong> pays <strong>Doyle</strong></span>
+        <span class="sum">€189.00</span>
+      </div>
+      <p class="label">Current balances — EUR</p>
+      <table>
+        <tr><th>Participant</th><th class="amount">Balance</th></tr>
+        <tr><td>You</td><td class="amount pos">+268.33</td></tr>
+        <tr><td>Brand</td><td class="amount neg">−241.67</td></tr>
+        <tr><td>Cooper</td><td class="amount neg">−215.66</td></tr>
+        <tr><td>Doyle</td><td class="amount pos">+189.00</td></tr>
+      </table>
+      <p>Balances stay as they are until you tell me the payments have actually gone
+         through.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const theme = new URLSearchParams(location.search).get("theme");
+  if (theme) document.documentElement.dataset.theme = theme;
+</script>
+</body>
+</html>
