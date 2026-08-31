@@ -20,11 +20,11 @@ SITE_FILES = (
 
 
 def build(output=OUTPUT):
-    """Write a self-contained Pages artifact and return its location."""
+    """Write a self-contained static artifact and return its location."""
 
     # Nothing here names the custom domain, and the page names it only where a
-    # relative URL cannot work: Cloudflare Pages attaches splitexpenses.ai to
-    # the project, not to a file in the uploaded tree, so the site is reachable
+    # relative URL cannot work: Cloudflare attaches splitexpenses.ai to the
+    # Worker, not to a file in the uploaded tree, so the site is reachable
     # under a preview URL too. The exception is index.html's og:image, which a
     # scraper fetches with no page to resolve it against.
     #

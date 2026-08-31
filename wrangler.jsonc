@@ -1,0 +1,14 @@
+{
+  // The landing page is served as a Worker with nothing but static assets, so
+  // there is no "main": a request that matches a file in the directory below
+  // is answered without invoking any Worker code.
+  //
+  // The directory is what tools/build_site.py writes, and it is built during
+  // the deploy rather than committed — dist/ is ignored. Cloudflare runs the
+  // build command first, so the tree exists by the time this is read.
+  "name": "split-expenses",
+  "compatibility_date": "2026-08-31",
+  "assets": {
+    "directory": "./dist/site"
+  }
+}

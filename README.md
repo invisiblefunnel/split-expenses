@@ -39,20 +39,22 @@ Then just start talking about a shared cost. Python 3.9 or newer, nothing else
 ## Landing page
 
 The static site lives in [`site/`](site/) and serves from
-[splitexpenses.ai](https://splitexpenses.ai). Cloudflare Pages builds it from
-this repository directly — no deploy workflow and no repository secrets, since
-Cloudflare checks the code out itself. Its build command is
+[splitexpenses.ai](https://splitexpenses.ai). Cloudflare builds and deploys it
+from this repository directly — no deploy workflow and no repository secrets,
+since Cloudflare checks the code out itself. Its build command is
 
 ```
 python3 -m unittest discover -s tests && python3 tools/build_site.py
 ```
 
-publishing `dist/site/`. The suite runs inside the build rather than ahead of
-it, so a failing test fails the build and nothing is deployed. A pull request
-touching the site gets its own preview URL.
+and its deploy command is `npx wrangler@4 deploy`, which uploads the
+`dist/site/` that [`wrangler.jsonc`](wrangler.jsonc) names as the Worker's
+static assets. The suite runs inside the build rather than ahead of it, so a
+failing test fails the build and nothing is deployed. A pull request touching
+the site gets its own preview URL.
 
-The domain is attached to the Pages project itself, so the build output names
-it in exactly one place: the `og:image` in `index.html`. A link-preview crawler
+The domain is attached to the Worker itself, so the build output names it in
+exactly one place: the `og:image` in `index.html`. A link-preview crawler
 fetches that card on its own, with no page to resolve a relative path against,
 so the URL has to be absolute — and it has to be a PNG, because none of the
 platforms render an SVG preview. The card is drawn as
