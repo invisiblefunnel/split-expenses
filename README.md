@@ -53,11 +53,14 @@ static assets. The suite runs inside the build rather than ahead of it, so a
 failing test fails the build and nothing is deployed. A pull request touching
 the site gets its own preview URL.
 
-The domain is attached to the Worker itself, so the build output names it in
-exactly one place: the `og:image` in `index.html`. A link-preview crawler
-fetches that card on its own, with no page to resolve a relative path against,
-so the URL has to be absolute — and it has to be a PNG, because none of the
-platforms render an SVG preview. The card is drawn as
+The domain is attached to the Worker by the `routes` in
+[`wrangler.jsonc`](wrangler.jsonc), which claim the hostname and create its DNS
+record as part of deploying, so nothing in the uploaded tree needs to know
+where it will be served from. The build output names the domain only in the two
+tags that cannot take a relative URL: `og:url`, and the `og:image` a
+link-preview crawler fetches on its own, with no page to resolve a relative
+path against — which also has to be a PNG, because none of the platforms
+render an SVG preview. The card is drawn as
 [`site/social-card.svg`](site/social-card.svg) and rasterized by hand with
 
 ```

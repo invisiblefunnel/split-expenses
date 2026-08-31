@@ -23,10 +23,10 @@ def build(output=OUTPUT):
     """Write a self-contained static artifact and return its location."""
 
     # Nothing here names the custom domain, and the page names it only where a
-    # relative URL cannot work: Cloudflare attaches splitexpenses.ai to the
-    # Worker, not to a file in the uploaded tree, so the site is reachable
-    # under a preview URL too. The exception is index.html's og:image, which a
-    # scraper fetches with no page to resolve it against.
+    # relative URL cannot work: wrangler.jsonc's routes attach splitexpenses.ai
+    # to the Worker, not to any file in the uploaded tree, so the site is
+    # reachable under a preview URL too. The exceptions are index.html's og:url
+    # and og:image, which a scraper reads with no page to resolve them against.
     #
     # The skill zip is not built here either. The page links to the release
     # asset, so the archive has exactly one producer — the Release workflow —

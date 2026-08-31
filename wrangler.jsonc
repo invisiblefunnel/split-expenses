@@ -8,6 +8,22 @@
   // build command first, so the tree exists by the time this is read.
   "name": "split-expenses",
   "compatibility_date": "2026-08-31",
+  // A deploy with no routes publishes to workers.dev and nowhere else, which
+  // is how the site went dark when it moved off Pages: the domain was attached
+  // to the Pages project, and a hostname does not follow the name
+  // "split-expenses" from one resource to another. Naming the domains here
+  // makes claiming them part of the deploy, so a Worker rebuilt from this
+  // repository comes back reachable instead of needing someone to remember
+  // what it answers to.
+  //
+  // "custom_domain" attaches the hostname and creates the DNS record for it,
+  // so a missing record is repaired by deploying rather than by hand. It does
+  // mean the deploy's token needs DNS edit on this zone, not just Workers
+  // edit. Both hostnames serve the same assets; www is not redirected.
+  "routes": [
+    { "pattern": "splitexpenses.ai", "custom_domain": true },
+    { "pattern": "www.splitexpenses.ai", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist/site"
   }
