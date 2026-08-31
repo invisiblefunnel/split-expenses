@@ -51,8 +51,19 @@ publishing `dist/site/`. The suite runs inside the build rather than ahead of
 it, so a failing test fails the build and nothing is deployed. A pull request
 touching the site gets its own preview URL.
 
-The domain is attached to the Pages project itself, so nothing in the build
-output mentions it.
+The domain is attached to the Pages project itself, so the build output names
+it in exactly one place: the `og:image` in `index.html`. A link-preview crawler
+fetches that card on its own, with no page to resolve a relative path against,
+so the URL has to be absolute — and it has to be a PNG, because none of the
+platforms render an SVG preview. The card is drawn as
+[`site/social-card.svg`](site/social-card.svg) and rasterized by hand with
+
+```
+python3 tools/render_social_card.py
+```
+
+which needs playwright and Chromium. Its output is committed: the build only
+copies files, and nothing rasterizes at deploy time.
 
 ---
 

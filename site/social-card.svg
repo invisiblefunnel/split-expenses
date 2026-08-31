@@ -1,7 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Split Expenses — say who paid, settle in the fewest payments">
   <style>
-    .serif { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    /* The page's two stacks, verbatim from styles.css: whatever type a reader
+       sees on the site is the type the card is rendered in. */
+    .serif { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif; }
+    .mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
   </style>
 
   <rect width="1200" height="630" fill="#f3f3f3"/>

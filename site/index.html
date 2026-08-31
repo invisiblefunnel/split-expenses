@@ -14,7 +14,23 @@
       content="An open-source agent skill that keeps a zero-sum balance table in your conversation and settles it in the fewest possible payments."
     >
     <meta property="og:type" content="website">
-    <meta property="og:image" content="./social-card.svg">
+    <meta property="og:url" content="https://splitexpenses.ai/">
+    <!--
+      The one place the build output names the domain. A scraper fetches the
+      card on its own, with no page to resolve a relative path against, so this
+      URL has to be absolute — and a PNG, because none of them will render an
+      SVG preview. A branch preview therefore advertises the production card,
+      which is the right picture under the wrong URL rather than no picture.
+      Rendered from social-card.svg by tools/render_social_card.py.
+    -->
+    <meta property="og:image" content="https://splitexpenses.ai/social-card.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta
+      property="og:image:alt"
+      content="Split Expenses — say who paid, settle in the fewest payments"
+    >
     <meta name="twitter:card" content="summary_large_image">
     <title>Split Expenses — say who paid, settle in the fewest payments</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
