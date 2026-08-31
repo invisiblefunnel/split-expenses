@@ -1,0 +1,5 @@
+__pycache__/
+dist/
+*.py[cod]
+.ruff_cache/
+.DS_Store
