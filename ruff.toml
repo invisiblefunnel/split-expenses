@@ -1,0 +1,25 @@
+# Formatting and linting for the bundled settlement program and its tests.
+# CI enforces both, so the rule set is selected explicitly rather than
+# inherited from whichever defaults the installed ruff version happens to ship.
+
+# The skill ships settle.py as a fixed artifact and runs it on whatever
+# interpreter the chat sandbox provides, so keep the language target at the
+# oldest interpreter CI exercises.
+target-version = "py39"
+
+[lint]
+select = [
+    "B",   # bugbear: likely bugs and questionable constructs
+    "E",   # pycodestyle errors
+    "F",   # pyflakes: undefined names, unused imports
+    "I",   # import ordering
+    "RUF", # ruff-specific checks
+    "SIM", # simplifiable constructs
+    "UP",  # constructs made obsolete by the language target
+    "W",   # pycodestyle warnings
+]
+
+# settle.py deliberately catches every exception at its top level: the contract
+# is that an unexpected internal failure still leaves one JSON error object on
+# stderr and exit status 1, never a traceback on stdout. BLE001 and TRY are
+# therefore not selected above.
