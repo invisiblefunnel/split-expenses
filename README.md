@@ -36,6 +36,24 @@ business-plan feature.
 Then just start talking about a shared cost. Python 3.9 or newer, nothing else
 — no server, no account, and no service to send your balances to.
 
+## Landing page
+
+The static site lives in [`site/`](site/) and serves from
+[splitexpenses.ai](https://splitexpenses.ai). Cloudflare Pages builds it from
+this repository directly — no deploy workflow and no repository secrets, since
+Cloudflare checks the code out itself. Its build command is
+
+```
+python3 -m unittest discover -s tests && python3 tools/build_site.py
+```
+
+publishing `dist/site/`. The suite runs inside the build rather than ahead of
+it, so a failing test fails the build and nothing is deployed. A pull request
+touching the site gets its own preview URL.
+
+The domain is attached to the Pages project itself, so nothing in the build
+output mentions it.
+
 ---
 
 Released under the [MIT License](LICENSE).

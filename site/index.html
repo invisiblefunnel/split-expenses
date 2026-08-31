@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Say who paid, in plain language, and settle in the fewest possible payments. An open-source agent skill for Claude, ChatGPT, and Codex. No account, no server."
+    >
+    <meta name="theme-color" content="#f3f3f3">
+    <meta property="og:title" content="Split Expenses — say who paid, settle in the fewest payments">
+    <meta
+      property="og:description"
+      content="An open-source agent skill that keeps a zero-sum balance table in your conversation and settles it in the fewest possible payments."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./social-card.svg">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>Split Expenses — say who paid, settle in the fewest payments</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+    <script>document.documentElement.classList.add("js");</script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="masthead">
+      <div class="wrap">
+        <a class="wordmark" href="./" aria-label="Split Expenses home">
+          <svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="6">
+            <circle cx="22" cy="22" r="13"/>
+            <circle cx="42" cy="42" r="13"/>
+            <path d="m42 9-20 46" stroke-linecap="round"/>
+          </svg>
+          <span>Split Expenses</span>
+        </a>
+        <nav aria-label="Main">
+          <a href="https://github.com/invisiblefunnel/split-expenses">Source <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <p class="kicker">Open-source agent skill · MIT</p>
+          <h1>Say who paid.<br>Settle in the<br>fewest payments.</h1>
+          <p class="lede">
+            Describe a shared cost the way you'd say it out loud. Your assistant
+            keeps the running balance, and works out the smallest set of payments
+            that makes everyone even.
+          </p>
+
+          <div class="actions">
+            <a class="btn" href="https://github.com/invisiblefunnel/split-expenses/releases/latest/download/split-expenses.zip">
+              Download the skill <span class="meta">ZIP · 6 KB</span>
+            </a>
+            <a class="btn btn--quiet" href="https://github.com/invisiblefunnel/split-expenses">
+              Read the source
+            </a>
+          </div>
+
+          <ul class="facts">
+            <li>No account</li>
+            <li>No server</li>
+            <li>Two files</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="chapter" id="conversation" aria-labelledby="conversation-title">
+        <div class="wrap">
+          <p class="chapter-num"><span class="num">01</span> In conversation</p>
+          <h2 id="conversation-title">Just say what happened.</h2>
+          <p>
+            No forms, no categories, nobody else to onboard. Hand over a photo of the
+            receipt, add the part a receipt can't know — who was in on the wine — and
+            the table comes back updated. It always sums to zero, so a mistake has
+            nowhere to hide.
+          </p>
+
+          <figure class="plate" id="fig-ledger" data-figure>
+            <svg class="fig" viewBox="0 0 320 387" role="img" aria-labelledby="fig1-title fig1-desc">
+              <title id="fig1-title">A receipt photo and a sentence become a balanced ledger</title>
+              <desc id="fig1-desc">
+                A photo of a receipt totalling 124 euro is attached and read, next to
+                a plain-language message — Brand paid for dinner, the wine was just
+                two of them, split the food with Cooper. It becomes two line items:
+                wine at 32 euro shared by Brand and You, and food at 92 euro shared
+                by all three. The balances that follow are You at minus 46.67, Brand
+                at plus 77.33, and Cooper at minus 30.66, drawn as bars either side
+                of a zero axis whose two halves are equal, and summing to zero.
+              </desc>
+
+              <rect x=".5" y=".5" width="319" height="386" fill="var(--card)" stroke="var(--rule)"/>
+              <text x="20" y="21" class="lab">PARIS · EUR</text>
+              <text x="300" y="21" text-anchor="end" class="lab">3 PEOPLE</text>
+              <path d="M0 33H320" class="hair"/>
+
+              <path d="M20 46V120" class="rule drawn" style="--len:74;--d:.1s"/>
+              <g class="anim" style="--d:.2s">
+                <path d="M34 48H52V68l-2.25 2-2.25-2-2.25 2-2.25-2-2.25 2-2.25-2-2.25 2L34 68Z" class="receipt"/>
+                <path d="M38 55H48M38 59.5H48M38 64h6.5" class="receipt-line"/>
+                <text x="60" y="58" class="lab">RECEIPT PHOTO</text>
+                <text x="60" y="70" class="row">€124.00</text>
+              </g>
+              <g class="anim" style="--d:.32s"><text x="34" y="94" class="say">Brand paid for dinner. The wine was just</text></g>
+              <g class="anim" style="--d:.44s"><text x="34" y="113" class="say">us two — split the food with Cooper.</text></g>
+              <path d="M35.5 52H50.5" class="scan" style="--d:.75s"/>
+
+              <path d="M20 141H300" class="rule drawn" style="--len:280;--d:1.55s"/>
+              <g class="anim" style="--d:1.7s">
+                <text x="20" y="157" class="lab">LINE ITEMS</text>
+                <text x="300" y="157" text-anchor="end" class="lab">TOTAL 124.00</text>
+                <path d="M20 165H300" class="hair"/>
+              </g>
+              <g class="anim" style="--d:1.8s">
+                <text x="20" y="183" class="row">Wine</text>
+                <text x="76" y="183" class="meta">brand · you</text>
+                <text x="300" y="183" text-anchor="end" class="row">32.00</text>
+                <path d="M20 193H300" class="hair"/>
+              </g>
+              <g class="anim" style="--d:1.98s">
+                <text x="20" y="211" class="row">Food</text>
+                <text x="76" y="211" class="meta">brand · you · cooper</text>
+                <text x="300" y="211" text-anchor="end" class="row">92.00</text>
+                <path d="M20 221H300" class="hair"/>
+              </g>
+
+              <g class="anim" style="--d:2.24s">
+                <text x="20" y="243" class="lab">BALANCES</text>
+                <text x="165" y="243" text-anchor="end" class="tiny">owes</text>
+                <text x="185" y="243" class="tiny">owed</text>
+                <text x="300" y="243" text-anchor="end" class="lab">SUM 0.00</text>
+              </g>
+              <path d="M20 251H300" class="rule drawn" style="--len:280;--d:2.34s"/>
+              <path d="M20 254H300" class="rule drawn" style="--len:280;--d:2.4s"/>
+              <g class="anim" style="--d:2.52s"><path d="M175 258V336" class="axis"/></g>
+
+              <g class="anim" style="--d:2.6s">
+                <text x="20" y="274.5" class="row">You</text>
+                <rect class="bar bar-neg" x="137.6" y="267.5" width="37.4" height="7" style="--d:2.64s"/>
+                <text x="300" y="274.5" text-anchor="end" class="row">−46.67</text>
+                <path d="M20 284H300" class="hair"/>
+              </g>
+              <g class="anim" style="--d:2.78s">
+                <text x="20" y="300.5" class="row">Brand</text>
+                <rect class="bar bar-pos" x="175" y="293.5" width="62" height="7" style="--d:2.82s"/>
+                <text x="300" y="300.5" text-anchor="end" class="row">+77.33</text>
+                <path d="M20 310H300" class="hair"/>
+              </g>
+              <g class="anim" style="--d:2.96s">
+                <text x="20" y="326.5" class="row">Cooper</text>
+                <rect class="bar bar-neg" x="150.4" y="319.5" width="24.6" height="7" style="--d:3s"/>
+                <text x="300" y="326.5" text-anchor="end" class="row">−30.66</text>
+                <path d="M20 336H300" class="hair"/>
+              </g>
+
+              <path d="M0 351H320" class="hair"/>
+              <g class="anim" style="--d:3.34s">
+                <text x="20" y="370" class="lab">ALWAYS SUMS TO ZERO</text>
+                <text x="300" y="370" text-anchor="end" class="lab">NO APP TO JOIN</text>
+              </g>
+            </svg>
+            <figcaption>
+              <span>Fig. 1 — Receipt photo in, balances out</span>
+              <button class="replay" type="button" data-replay="fig-ledger">Replay</button>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="chapter" id="settlement" aria-labelledby="settlement-title">
+        <div class="wrap">
+          <p class="chapter-num"><span class="num">02</span> At the end of it</p>
+          <h2 id="settlement-title">The fewest payments that exist.</h2>
+          <p>
+            When the trip is over, ask it to settle up. You get the shortest list of
+            payments that clears everyone — fewer payments than there are people,
+            every time.
+          </p>
+
+          <figure class="plate" id="fig-settle" data-figure>
+            <svg class="fig" viewBox="0 0 320 390" role="img" aria-labelledby="fig2-title fig2-desc">
+              <title id="fig2-title">Four balances settled in three payments</title>
+              <desc id="fig2-desc">
+                Four people hold balances: You at plus 268.33, Brand at minus 241.67,
+                Cooper at minus 215.66, and Doyle at plus 189.00. Six pairs among them
+                could exchange money, shown as faint lines. Three of those lines are
+                drawn solid: Brand pays You 241.67, Cooper pays You 26.66, and Cooper
+                pays Doyle 189.00 — after which every balance is zero.
+              </desc>
+
+              <rect x=".5" y=".5" width="319" height="389" fill="var(--card)" stroke="var(--rule)"/>
+              <text x="20" y="21" class="lab">SETTLEMENT</text>
+              <text x="300" y="21" text-anchor="end" class="lab">4 PEOPLE</text>
+              <path d="M0 33H320" class="hair"/>
+
+              <g class="anim" style="--d:.12s">
+                <text x="76" y="48" text-anchor="middle" class="tiny">You</text>
+                <text x="76" y="58" text-anchor="middle" class="tiny">+268.33</text>
+                <circle cx="76" cy="84" r="14" fill="var(--card)" stroke="var(--ink)"/>
+                <text x="76" y="87.6" text-anchor="middle" class="node">Y</text>
+              </g>
+              <g class="anim" style="--d:.2s">
+                <text x="244" y="48" text-anchor="middle" class="tiny">Brand</text>
+                <text x="244" y="58" text-anchor="middle" class="tiny">−241.67</text>
+                <circle cx="244" cy="84" r="14" fill="var(--card)" stroke="var(--ink)"/>
+                <text x="244" y="87.6" text-anchor="middle" class="node">B</text>
+              </g>
+              <g class="anim" style="--d:.28s">
+                <circle cx="76" cy="160" r="14" fill="var(--card)" stroke="var(--ink)"/>
+                <text x="76" y="163.6" text-anchor="middle" class="node">C</text>
+                <text x="76" y="186" text-anchor="middle" class="tiny">Cooper</text>
+                <text x="76" y="196" text-anchor="middle" class="tiny">−215.66</text>
+              </g>
+              <g class="anim" style="--d:.36s">
+                <circle cx="244" cy="160" r="14" fill="var(--card)" stroke="var(--ink)"/>
+                <text x="244" y="163.6" text-anchor="middle" class="node">D</text>
+                <text x="244" y="186" text-anchor="middle" class="tiny">Doyle</text>
+                <text x="244" y="196" text-anchor="middle" class="tiny">+189.00</text>
+              </g>
+
+              <path d="M90 84H230" class="faint drawn" style="--len:140;--d:.5s"/>
+              <path d="M90 160H230" class="faint drawn" style="--len:140;--d:.56s"/>
+              <path d="M76 98V146" class="faint drawn" style="--len:48;--d:.62s"/>
+              <path d="M244 98V146" class="faint drawn" style="--len:48;--d:.68s"/>
+              <path d="M89.1 88.96 230.9 155.04" class="faint drawn" style="--len:160;--d:.74s"/>
+              <path d="M230.9 88.96 89.1 155.04" class="faint drawn" style="--len:160;--d:.8s"/>
+
+              <g class="anim" style="--d:.95s"><text x="20" y="214" class="lab">SIX POSSIBLE PAIRS</text></g>
+
+              <path d="M230 84H98" class="wire drawn" style="--len:132;--d:1.25s"/>
+              <g class="anim" style="--d:1.6s"><path d="M92 84 98 80.8 98 87.2Z" class="head"/></g>
+              <path d="M76 146V106" class="wire drawn" style="--len:40;--d:1.5s"/>
+              <g class="anim" style="--d:1.85s"><path d="M76 100 72.8 106 79.2 106Z" class="head"/></g>
+              <path d="M90 160H222" class="wire drawn" style="--len:132;--d:1.75s"/>
+              <g class="anim" style="--d:2.1s"><path d="M228 160 222 156.8 222 163.2Z" class="head"/></g>
+
+              <g class="anim" style="--d:2.2s"><text x="300" y="214" text-anchor="end" class="lab lab-ink">THREE PAYMENTS</text></g>
+
+              <path d="M20 226H300" class="rule drawn" style="--len:280;--d:2.3s"/>
+              <g class="anim" style="--d:2.42s">
+                <text x="20" y="242" class="lab">PAYMENTS</text>
+                <text x="300" y="242" text-anchor="end" class="lab">3 TOTAL</text>
+              </g>
+              <path d="M20 250H300" class="rule drawn" style="--len:280;--d:2.5s"/>
+              <path d="M20 253H300" class="rule drawn" style="--len:280;--d:2.56s"/>
+
+              <g class="anim" style="--d:2.68s">
+                <text x="20" y="275.5" class="row">Brand</text>
+                <path d="M74 272H100" class="wire drawn" style="--len:26;--d:2.78s"/>
+                <path d="M106 272 100 268.8 100 275.2Z" class="head anim" style="--d:3.05s"/>
+                <text x="116" y="275.5" class="row">You</text>
+                <text x="300" y="275.5" text-anchor="end" class="row">241.67</text>
+                <path d="M20 285H300" class="hair"/>
+              </g>
+              <g class="anim" style="--d:2.88s">
+                <text x="20" y="301.5" class="row">Cooper</text>
+                <path d="M74 298H100" class="wire drawn" style="--len:26;--d:2.98s"/>
+                <path d="M106 298 100 294.8 100 301.2Z" class="head anim" style="--d:3.25s"/>
+                <text x="116" y="301.5" class="row">You</text>
+                <text x="300" y="301.5" text-anchor="end" class="row">26.66</text>
+                <path d="M20 311H300" class="hair"/>
+              </g>
+              <g class="anim" style="--d:3.08s">
+                <text x="20" y="327.5" class="row">Cooper</text>
+                <path d="M74 324H100" class="wire drawn" style="--len:26;--d:3.18s"/>
+                <path d="M106 324 100 320.8 100 327.2Z" class="head anim" style="--d:3.45s"/>
+                <text x="116" y="327.5" class="row">Doyle</text>
+                <text x="300" y="327.5" text-anchor="end" class="row">189.00</text>
+                <path d="M20 337H300" class="hair"/>
+              </g>
+
+              <path d="M0 354H320" class="hair"/>
+              <g class="anim" style="--d:3.75s">
+                <text x="20" y="373" class="lab">EVERY BALANCE AT 0.00</text>
+              </g>
+            </svg>
+            <figcaption>
+              <span>Fig. 2 — Four balances, three payments</span>
+              <button class="replay" type="button" data-replay="fig-settle">Replay</button>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="chapter" id="install" aria-labelledby="install-title">
+        <div class="wrap">
+          <p class="chapter-num"><span class="num">03</span> Install</p>
+          <h2 id="install-title">One file, two ways in.</h2>
+          <p>
+            Download it once. Unzip it for an agent with filesystem access, or upload
+            the very same file to the Claude or ChatGPT apps.
+          </p>
+
+          <ol class="routes">
+            <li>
+              <p class="route-label">A — A coding agent</p>
+              <p>Unzip it into the skills folder your agent already reads.</p>
+              <pre><code>unzip split-expenses.zip \
+  -d ~/.claude/skills/</code></pre>
+            </li>
+            <li>
+              <p class="route-label">B — The Claude or ChatGPT app</p>
+              <p>Upload the zip under Settings → Skills, on a plan with code execution.</p>
+              <a class="btn" href="https://github.com/invisiblefunnel/split-expenses/releases/latest/download/split-expenses.zip">
+                Download the skill <span class="meta">ZIP · 6 KB</span>
+              </a>
+            </li>
+          </ol>
+
+          <p class="fineprint">
+            Python 3.9 or newer. No other dependencies, and nothing to configure —
+            start talking about a shared cost.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <a class="wordmark" href="./" aria-label="Split Expenses home">
+          <svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="6">
+            <circle cx="22" cy="22" r="13"/>
+            <circle cx="42" cy="42" r="13"/>
+            <path d="m42 9-20 46" stroke-linecap="round"/>
+          </svg>
+          <span>Split Expenses</span>
+        </a>
+        <nav aria-label="Elsewhere">
+          <a href="https://github.com/invisiblefunnel/split-expenses">GitHub</a>
+          <a href="https://github.com/invisiblefunnel/split-expenses/blob/main/docs/solver.md">The solver</a>
+          <a href="https://github.com/invisiblefunnel/split-expenses/blob/main/LICENSE">MIT License</a>
+        </nav>
+        <p class="fineprint">
+          This page sets no cookies, runs no analytics, and loads nothing from a
+          third party.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,632 @@
+/* Split Expenses — a grayscale, mobile-first specimen sheet.
+   Two typefaces: an old-style serif for reading, a mono for machine parts.
+   No color, so hierarchy comes from size, weight, rules, and inversion. */
+
+:root {
+  --paper: #f3f3f3;
+  --card: #fff;
+  --ink: #121212;
+  --ink-2: #3d3d3d;
+  --ink-3: #6b6b6b;
+  --ink-4: #9a9a9a;
+  --rule: #d8d8d8;
+  --rule-2: #e6e6e6;
+  --bar: #b8b8b8;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 20rem;
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: -0.028em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- shell */
+
+.wrap {
+  width: min(100% - 2.5rem, 40rem);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 20;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* The rules run edge to edge; the type stays in its column. */
+.masthead,
+.chapter,
+.site-footer {
+  border-top: 1px solid var(--ink);
+}
+
+.masthead {
+  border-top: 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.masthead .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1rem;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.wordmark svg {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+/* --------------------------------------------------------- micro labels */
+
+.label,
+.kicker,
+.chapter-num,
+.facts,
+figcaption,
+.route-label,
+.btn,
+.wordmark span,
+.masthead nav a,
+.fineprint,
+.site-footer nav a {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.kicker,
+.chapter-num,
+.masthead nav a,
+.site-footer nav a {
+  color: var(--ink-3);
+}
+
+.chapter-num .num,
+.masthead nav a:hover,
+.site-footer nav a:hover {
+  color: var(--ink);
+}
+
+.chapter-num .num {
+  margin-right: 0.5rem;
+}
+
+.masthead nav a,
+.site-footer nav a {
+  text-decoration: none;
+}
+
+.masthead nav a:hover,
+.site-footer nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.kicker::before {
+  display: inline-block;
+  width: 1.25rem;
+  margin-right: 0.6rem;
+  border-top: 1px solid var(--ink-4);
+  content: "";
+  vertical-align: 0.3em;
+}
+
+.fineprint {
+  color: var(--ink-3);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: none;
+}
+
+/* ----------------------------------------------------------------- hero */
+
+.hero {
+  padding-block: 3rem 3.25rem;
+}
+
+.hero h1 {
+  margin-block: 1.25rem;
+  font-size: clamp(2rem, 10.5vw, 4rem);
+}
+
+.lede {
+  max-width: 34rem;
+  color: var(--ink-2);
+  font-size: clamp(1.0625rem, 4.4vw, 1.25rem);
+  line-height: 1.55;
+}
+
+.actions {
+  display: grid;
+  gap: 0.625rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.25rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn .meta {
+  opacity: 0.6;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+}
+
+.btn:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn--quiet {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn--quiet:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.9rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  color: var(--ink-3);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  list-style: none;
+}
+
+.facts li + li::before {
+  margin-right: 0.9rem;
+  content: "·";
+}
+
+/* ------------------------------------------------------------- chapters */
+
+.chapter {
+  padding-block: 3rem;
+}
+
+.chapter h2 {
+  margin-block: 0.9rem 1rem;
+  font-size: clamp(1.75rem, 7.5vw, 2.75rem);
+}
+
+.chapter p:not([class]) {
+  max-width: 34rem;
+  color: var(--ink-2);
+}
+
+/* -------------------------------------------------------------- figures */
+
+.plate {
+  max-width: 30rem;
+  margin: 2.25rem 0 0;
+}
+
+figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-3);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+}
+
+/* Only offered when a script is around to honour it. */
+.replay {
+  display: none;
+}
+
+.js .replay {
+  display: inline-block;
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.fig {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.fig text {
+  fill: var(--ink);
+  font-family: var(--mono);
+}
+
+.fig .say {
+  fill: var(--ink);
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.fig .lab {
+  fill: var(--ink-3);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+}
+
+.fig .lab-ink {
+  fill: var(--ink);
+}
+
+.fig .row {
+  font-size: 10.5px;
+}
+
+.fig .meta {
+  fill: var(--ink-3);
+  font-size: 8.5px;
+}
+
+.fig .node {
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+.fig .tiny {
+  fill: var(--ink-3);
+  font-size: 7.5px;
+}
+
+.fig .hair {
+  fill: none;
+  stroke: var(--rule-2);
+}
+
+.fig .rule {
+  fill: none;
+  stroke: var(--ink);
+}
+
+.fig .faint {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 0.9;
+}
+
+.fig .wire {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.4;
+}
+
+.fig .head {
+  fill: var(--ink);
+}
+
+.fig .axis {
+  fill: none;
+  stroke: var(--ink-4);
+  stroke-dasharray: 1.5 3;
+}
+
+.fig .receipt {
+  fill: none;
+  stroke: var(--ink-3);
+  stroke-width: 0.9;
+}
+
+.fig .receipt-line {
+  fill: none;
+  stroke: var(--ink-4);
+  stroke-width: 0.8;
+}
+
+/* The sweep only ever exists mid-animation, so it starts and ends invisible. */
+.fig .scan {
+  opacity: 0;
+  fill: none;
+  stroke: var(--ink);
+}
+
+.fig .bar {
+  transform-box: fill-box;
+}
+
+.fig .bar-pos {
+  fill: var(--ink);
+  transform-origin: 0% 50%;
+}
+
+.fig .bar-neg {
+  fill: var(--bar);
+  transform-origin: 100% 50%;
+}
+
+.fig .drawn {
+  stroke-dasharray: var(--len);
+}
+
+/* Hidden only once we know a script can bring them back. */
+.js .fig .anim {
+  opacity: 0;
+}
+
+.js .fig .bar {
+  transform: scaleX(0);
+}
+
+.js .fig .drawn {
+  stroke-dashoffset: var(--len);
+}
+
+.is-playing .anim {
+  animation: fig-rise 0.38s var(--d, 0s) cubic-bezier(0.2, 0.75, 0.3, 1) both;
+}
+
+.is-playing .bar {
+  animation: fig-grow 0.55s var(--d, 0s) cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+.is-playing .drawn {
+  animation: fig-draw 0.45s var(--d, 0s) cubic-bezier(0.3, 0.8, 0.35, 1) both;
+}
+
+.is-playing .scan {
+  animation: fig-scan 0.85s var(--d, 0s) ease-in-out both;
+}
+
+@keyframes fig-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fig-grow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fig-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fig-scan {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  18%,
+  82% {
+    opacity: 0.85;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* -------------------------------------------------------------- install */
+
+.routes {
+  margin: 2rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.routes li {
+  padding-block: 1.4rem;
+  border-top: 1px solid var(--rule);
+}
+
+.route-label {
+  margin-bottom: 0.35rem;
+}
+
+.routes p:not([class]) {
+  color: var(--ink-2);
+}
+
+pre {
+  overflow-x: auto;
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule);
+  background: var(--card);
+}
+
+code {
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+.routes .btn {
+  margin-top: 1rem;
+}
+
+/* --------------------------------------------------------------- footer */
+
+.site-footer .wrap {
+  display: grid;
+  gap: 1.25rem;
+  padding-block: 2rem 2.5rem;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+}
+
+/* ------------------------------------------------------------ wide-open */
+
+@media (min-width: 34rem) {
+  .actions {
+    grid-auto-flow: column;
+    justify-content: start;
+  }
+
+  .btn {
+    justify-content: flex-start;
+  }
+
+  .site-footer .wrap {
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    column-gap: 2rem;
+  }
+
+  .site-footer nav {
+    justify-content: flex-end;
+  }
+
+  .site-footer .fineprint {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 48rem) {
+  .hero {
+    padding-block: 5rem 4.5rem;
+  }
+
+  .chapter {
+    padding-block: 4.5rem;
+  }
+}
+
+/* ------------------------------------------------------ reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .fig .anim {
+    opacity: 1;
+  }
+
+  .js .fig .bar {
+    transform: none;
+  }
+
+  .js .fig .drawn {
+    stroke-dashoffset: 0;
+  }
+
+  .js .replay {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-delay: 0s !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
