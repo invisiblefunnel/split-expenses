@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="Say who paid, in plain language, and settle in the fewest possible payments. An open-source agent skill for Claude, ChatGPT, and Codex. No account, no server."
+      content="Send the receipt photo, say who shared, and your assistant keeps the group’s running balance in the chat — then settles everyone up in the fewest possible payments. An open-source agent skill for Claude, ChatGPT, and Codex. No app, no account, no server."
     >
     <meta name="theme-color" content="#f3f3f3">
-    <meta property="og:title" content="Split Expenses — say who paid, settle in the fewest payments">
+    <meta property="og:title" content="Split Expenses — send the receipt, your assistant settles the rest">
     <meta
       property="og:description"
-      content="An open-source agent skill that keeps a zero-sum balance table in your conversation and settles it in the fewest possible payments."
+      content="An open-source agent skill that reads receipt photos, keeps a zero-sum balance table in your conversation, and settles the group in the provably fewest payments."
     >
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://splitexpenses.ai/">
@@ -30,10 +30,10 @@
     <meta property="og:image:height" content="630">
     <meta
       property="og:image:alt"
-      content="Split Expenses — say who paid, settle in the fewest payments"
+      content="Split Expenses — send the receipt, say who shared, your assistant settles the rest"
     >
     <meta name="twitter:card" content="summary_large_image">
-    <title>Split Expenses — say who paid, settle in the fewest payments</title>
+    <title>Split Expenses — send the receipt, your assistant settles the rest</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./styles.css">
     <script>document.documentElement.classList.add("js");</script>
@@ -61,12 +61,13 @@
     <main id="main">
       <section class="hero">
         <div class="wrap">
-          <p class="kicker">Open-source agent skill · MIT</p>
-          <h1>Say who paid.<br>Settle in the<br>fewest payments.</h1>
+          <p class="kicker">An agent skill for Claude, ChatGPT &amp; Codex</p>
+          <h1>Send the receipt.<br>Say who shared.<br>Your assistant<br>settles the rest.</h1>
           <p class="lede">
-            Describe a shared cost the way you'd say it out loud. Your assistant
-            keeps the running balance, and works out the smallest set of payments
-            that makes everyone even.
+            A small open-source skill that turns your assistant into the group’s
+            bookkeeper. Receipts and plain sentences go in; a running balance
+            table comes back, right in the chat. The trip ends the way it
+            should: everyone square, in the fewest payments the numbers allow.
           </p>
 
           <div class="actions">
@@ -79,9 +80,10 @@
           </div>
 
           <ul class="facts">
+            <li>No app to join</li>
             <li>No account</li>
             <li>No server</li>
-            <li>Two files</li>
+            <li>MIT</li>
           </ul>
         </div>
       </section>
@@ -91,10 +93,10 @@
           <p class="chapter-num"><span class="num">01</span> In conversation</p>
           <h2 id="conversation-title">Just say what happened.</h2>
           <p>
-            No forms, no categories, nobody else to onboard. Hand over a photo of the
-            receipt, add the part a receipt can't know — who was in on the wine — and
-            the table comes back updated. It always sums to zero, so a mistake has
-            nowhere to hide.
+            No forms, no categories, nobody else to onboard. Hand your assistant the
+            receipt photo, add the part a photo can’t know — who was in on the wine —
+            and the table comes back updated. It always sums to zero, so a mistake
+            has nowhere to hide.
           </p>
 
           <figure class="plate" id="fig-ledger" data-figure>
@@ -191,11 +193,12 @@
       <section class="chapter" id="settlement" aria-labelledby="settlement-title">
         <div class="wrap">
           <p class="chapter-num"><span class="num">02</span> At the end of it</p>
-          <h2 id="settlement-title">The fewest payments that exist.</h2>
+          <h2 id="settlement-title">Say “settle up.” It’s done.</h2>
           <p>
-            When the trip is over, ask it to settle up. You get the shortest list of
-            payments that clears everyone — fewer payments than there are people,
-            every time.
+            Back comes the shortest list of payments that can clear the group — not
+            a good guess at it, the provable minimum. Money moves straight from
+            whoever owes to whoever’s owed, in fewer payments than there are people,
+            every time. The solver even checks its own arithmetic before you see it.
           </p>
 
           <figure class="plate" id="fig-settle" data-figure>
