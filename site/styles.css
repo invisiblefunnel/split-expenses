@@ -175,13 +175,23 @@ figcaption,
   text-underline-offset: 0.3em;
 }
 
+/* The rule is a flex item beside the text rather than an inline run-in, so
+   when the kicker wraps on a narrow phone its second line starts under the
+   first word, not under the rule. */
+.kicker {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  text-wrap: balance;
+}
+
 .kicker::before {
-  display: inline-block;
+  flex: none;
+  position: relative;
+  top: -0.3em;
   width: 1.25rem;
-  margin-right: 0.6rem;
   border-top: 1px solid var(--ink-4);
   content: "";
-  vertical-align: 0.3em;
 }
 
 .fineprint {
@@ -217,6 +227,7 @@ figcaption,
 
 .btn {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: center;
   gap: 0.6rem;
@@ -228,10 +239,12 @@ figcaption,
   transition: background 0.15s ease, color 0.15s ease;
 }
 
+/* Too narrow for both on one line, and the tag drops down whole. */
 .btn .meta {
   opacity: 0.6;
   font-size: 0.625rem;
   letter-spacing: 0.14em;
+  white-space: nowrap;
 }
 
 .btn:hover {
@@ -249,10 +262,15 @@ figcaption,
   color: var(--paper);
 }
 
+/* Each item after the first draws its separator just outside its own left
+   edge, in the padding of the item before it. An item that starts a wrapped
+   line draws its dot outside the list's box, where overflow clips it, so a
+   line never opens with a stray "·". */
 .facts {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem 0.9rem;
+  overflow: hidden;
+  row-gap: 0.3rem;
   margin: 1.5rem 0 0;
   padding: 0;
   color: var(--ink-3);
@@ -261,8 +279,20 @@ figcaption,
   list-style: none;
 }
 
+.facts li {
+  position: relative;
+}
+
+.facts li:not(:last-child) {
+  padding-right: 2.25rem;
+}
+
 .facts li + li::before {
-  margin-right: 0.9rem;
+  position: absolute;
+  top: 0;
+  left: -1.125rem;
+  letter-spacing: 0;
+  transform: translateX(-50%);
   content: "·";
 }
 
